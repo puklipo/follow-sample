@@ -53,12 +53,17 @@ class User extends Authenticatable
      */
     public function followings(): BelongsToMany
     {
+        //tableはテーブル名だけでなくモデルで指定してもいい
+
         return $this->belongsToMany(
             related: User::class,
             table: Follow::class,
             foreignPivotKey: 'user_id',
             relatedPivotKey: 'follow_id'
-        )->withTimestamps();
+        )->withTimestamps()
+            ->using(Follow::class);
+
+        //using()は使っても使わなくてもサンプル程度では影響ない
     }
 
     /**
@@ -90,8 +95,7 @@ class User extends Authenticatable
 
         return Status::with([
             'user' => fn (Builder $query) => $query->whereIn('user_id', $users)
-        ])
-            ->latest();
+        ])->latest();
     }
 
     /**
