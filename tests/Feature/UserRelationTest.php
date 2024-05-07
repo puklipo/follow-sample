@@ -141,7 +141,7 @@ class UserRelationTest extends TestCase
 
     public function test_with_count(): void
     {
-        $user1 = User::withCount(['followings', 'followers', 'friends'])->find(1);
+        $user1 = User::withCount(['followings', 'followers', 'friends', 'statuses'])->find(1);
 
         $user2 = User::find(2);
         $user2->loadCount(['followings', 'followers']);
@@ -149,6 +149,7 @@ class UserRelationTest extends TestCase
         $this->assertSame(1, $user1->followings_count);
         $this->assertSame(0, $user1->followers_count);
         $this->assertSame(0, $user1->friends_count);
+        $this->assertSame(10, $user1->statuses_count);
         $this->assertSame(0, $user2->followings_count);
         $this->assertSame(1, $user2->followers_count);
     }
