@@ -41,6 +41,35 @@ class UserRelationTest extends TestCase
         $this->assertNull($user1->followers->last());
     }
 
+    public function test_follow(): void
+    {
+        $user1 = User::find(1);
+        $user3 = User::find(3);
+
+        // attach/detachよりtoggleで切り換えたほうがいい
+        $user1->followings()->attach($user3);
+
+        $this->assertSame(2, $user1->followings->count());
+        $this->assertTrue($user1->followings->contains($user3));
+    }
+
+    public function test_unfollow(): void
+    {
+        $user1 = User::find(1);
+        $user2 = User::find(2);
+
+        // attach/detachよりtoggleで切り換えたほうがいい
+        $user1->followings()->attach($user2);
+        // すでにフォローしているのにフォローすると重複するので。
+        $this->assertSame(2, $user1->followings->count());
+        // detachで両方とも削除されるけどdetachしない限り重複したまま。
+        $this->assertSame(2, $user1->followings()->detach($user2));
+        $user1->refresh();
+
+        $this->assertSame(0, $user1->followings->count());
+        $this->assertTrue($user1->followings->doesntContain($user2));
+    }
+
     public function test_user2_has_one_follower(): void
     {
         $user1 = User::find(1);
