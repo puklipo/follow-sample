@@ -13,25 +13,9 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user1 = User::factory()
+        User::factory()
+            ->count(3)
             ->hasStatuses(10)
-            ->create([
-                'name' => 'Test User 1',
-                'email' => 'test1@example.com',
-            ]);
-
-        $user2 = User::factory()
-            ->hasStatuses(10)
-            ->create([
-                'name' => 'Test User 2',
-                'email' => 'test2@example.com',
-            ]);
-
-        $user3 = User::factory()->create([
-            'name' => 'Test User 3',
-            'email' => 'test3@example.com',
-        ]);
-
-        $user1->followings()->toggle($user2);
+            ->create();
     }
 }
