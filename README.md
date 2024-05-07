@@ -29,7 +29,7 @@ php artisan make:model Follow -pm
 ```
 
 ## リレーションの設定
-一番重要なリレーションの設定は`app/Models/User.php`
+一番重要なリレーションの設定は[app/Models/User.php](app/Models/User.php)
 
 中間テーブルが規約と違うので個別に設定が必要だけど単なる多対多のリレーション。
 
