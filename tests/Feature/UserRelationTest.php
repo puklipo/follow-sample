@@ -11,6 +11,15 @@ class UserRelationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed();
+
+        User::find(1)->followings()->toggle(User::find(2));
+    }
+
     public function test_user1_has_one_following(): void
     {
         $user1 = User::find(1);
