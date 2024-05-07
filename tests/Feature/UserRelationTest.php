@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Follow;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -127,5 +128,14 @@ class UserRelationTest extends TestCase
         $this->assertSame(1000, $user1->followers->count());
         $this->assertSame(0, $user1->friends->count());
         $this->assertSame(3 + 1001, User::count());
+    }
+
+    public function test_pivot_is_follow_class(): void
+    {
+        $following = User::find(1)->followings()->first();
+        $follower = User::find(2)->followers()->first();
+
+        $this->assertInstanceOf(Follow::class, $following->pivot);
+        $this->assertInstanceOf(Follow::class, $follower->pivot);
     }
 }
