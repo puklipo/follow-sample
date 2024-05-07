@@ -103,6 +103,7 @@ class User extends Authenticatable
             ->orderByPivot('created_at', 'desc')
             ->wherePivotIn('follow_id', $this->followers()->pluck('id'));
 
+        // wherePivotInの代わりにwhereInでも大体同じ
         //->whereIn('id', $this->followers()->pluck('id'))
     }
 }
