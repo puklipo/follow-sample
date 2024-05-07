@@ -15,6 +15,8 @@ class UserRelationTest extends TestCase
         $user1 = User::find(1);
         $user2 = User::find(2);
 
+        info($user1->followings()->toSql());
+
         $this->assertTrue($user1->followings->isNotEmpty());
         $this->assertTrue($user1->followings->contains($user2));
     }
@@ -88,6 +90,8 @@ class UserRelationTest extends TestCase
 
         $user2->followings()->toggle($user1);
         $user3->followings()->toggle($user1);
+
+        info($user1->friends()->toSql());
 
         $this->assertSame(1, $user1->friends()->count());
         $this->assertSame(1, $user2->friends()->count());
