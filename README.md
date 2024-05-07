@@ -67,3 +67,4 @@ php artisan make:model Follow -pm
 ```
 
 ## 具体的な使い方はテストを参照
+[UserRelationTest.php](tests/Feature/UserRelationTest.php)
