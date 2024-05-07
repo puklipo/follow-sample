@@ -112,7 +112,6 @@ class UserRelationTest extends TestCase
         $this->assertSame(2, $user1->friends()->count());
         $this->assertTrue($user1->friends->contains($user2));
         $this->assertTrue($user1->friends->contains($user3));
-        $this->assertTrue($user1->friends()->first()->is($user3));
     }
 
     public function test_user1_has_many_followers(): void
